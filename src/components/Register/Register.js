@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './Register.css';
+import { Link } from 'react-router-dom';
 
 class RegisterForm extends React.Component  {
    state = {
@@ -8,6 +8,10 @@ class RegisterForm extends React.Component  {
        username: "",
        email: "",
        password: ""
+   }
+
+   componentDidMount() {
+       document.body.classList.add("register-login-page-background")
    }
 
    onChangeHandler = (e) => {
@@ -23,7 +27,7 @@ class RegisterForm extends React.Component  {
         nome: this.state.name,
         senha: this.state.password,
         email: this.state.email,
-        usuario: this.state.usuario
+        usuario: this.state.username
       })
       .then(function (response) {
         console.log(response);
@@ -36,9 +40,9 @@ class RegisterForm extends React.Component  {
    render () {
        return (
        <div className="col-md-12">
-        <div className="register-wrapper col-md-2">
-            <h1 className="register-title">Registre-se</h1>
-            <form className="register-form">
+        <div className="register-login-wrapper col-md-2">
+            <h1 className="register-login-title">Registre-se</h1>
+            <form className="register-login-form">
                 <label>Nome completo:   </label>
                 <input name="name" placeholder="Digite seu nome completo" type="text" value={this.state.name} 
                     onChange={e => this.onChangeHandler(e)} />
@@ -55,7 +59,8 @@ class RegisterForm extends React.Component  {
                 <input name="password" placeholder="Digite uma senha" type="password" value={this.state.password} 
                     onChange={e => this.onChangeHandler(e)} />
                 <br />
-                <button className="register-button form-control" onClick={(e) => this.onSubmit(e)}>Cadastrar</button>
+                <Link to= "/" className="already-has-account"><small>Já possui conta? Faça login!</small></Link>
+                <button className="register-login-button form-control" onClick={(e) => this.onSubmit(e)}>Cadastrar</button>
             </form>
         </div>
        </div>

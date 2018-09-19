@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import './css/Register-Login.css';
 import './App.css';
 import RegisterForm from './components/Register/Register';
+import Login from './components/Home/Home';
 
 
 class App extends Component {
@@ -10,7 +12,10 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Route path="/register" component={RegisterForm}/>
+        <Switch>
+          <Route path="/register" component={RegisterForm}/>
+          <Route path="/" component={Login}/>
+        </Switch>
       </BrowserRouter>
     );
   }
