@@ -29,8 +29,7 @@ class Login extends React.Component  {
          email: this.state.email,
        })
        .then(function (response) {
-            //TODO: push tem que ser pra pagina como se o usuário tivesse logado    
-            // self.props.history.push('/register');
+           self.props.history.push('/Dashboard');
             console.log("Loguei")
        })
        .catch(function (error) {

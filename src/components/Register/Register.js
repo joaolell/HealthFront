@@ -1,6 +1,6 @@
-import React from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 class RegisterForm extends React.Component  {
    state = {
@@ -59,7 +59,7 @@ class RegisterForm extends React.Component  {
                 <input name="password" placeholder="Digite uma senha" type="password" value={this.state.password} 
                     onChange={e => this.onChangeHandler(e)} />
                 <br />
-                <Link to= "/" className="already-has-account"><small>Já possui conta? Faça login!</small></Link>
+                <Link to= "/home" className="already-has-account"><small>Já possui conta? Faça login!</small></Link>
                 <button className="register-login-button form-control" onClick={(e) => this.onSubmit(e)}>Cadastrar</button>
             </form>
         </div>
