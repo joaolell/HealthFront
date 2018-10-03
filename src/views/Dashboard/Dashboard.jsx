@@ -29,6 +29,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import axios from "axios";
 
 import { bugs, website, server } from "variables/general.jsx";
 
@@ -41,22 +42,101 @@ import {
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 class Dashboard extends React.Component {
-  state = {
-    value: 0
-  };
+  constructor() {
+    super();
+    this.state = {
+      registerCount: 0,
+      value: 0,
+      top10Exportadores: [
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 }
+      ],
+      top10Labs: [
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 }
+      ],
+      top10Descartaveis: [
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 },
+        { Nome: "", Count: 0 }
+      ],
+    };
+  }
+
   handleChange = (event, value) => {
     this.setState({ value });
   };
 
+  componentDidMount() {
+    var self = this;
+    axios
+      .get("http://localhost:50336/api/Filters/getRegistroCount")
+      .then(function(response) {
+        self.setState({ registerCount: JSON.parse(response.data) });
+      })
+      .catch(function(error) {});
+
+    axios
+      .get("http://localhost:50336/api/Filters/getTopFabricantes")
+      .then(function(response) {
+        self.setState({
+          top10Exportadores: JSON.parse(response.data)
+        });
+      })
+      .catch(function(error) {});
+
+    axios
+      .get("http://localhost:50336/api/Filters/getLabCount")
+      .then(function(response) {
+        self.setState({
+          top10Labs: JSON.parse(response.data)
+        });
+      })
+      .catch(function(error) {});
+
+      axios
+      .get("http://localhost:50336/api/Filters/getDescartaveis")
+      .then(function(response) {
+        self.setState({
+          top10Descartaveis: JSON.parse(response.data)
+        });
+      })
+      .catch(function(error) {});
+  }
+
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
+
   render() {
     const { classes } = this.props;
     return (
       <div>
         <GridContainer>
-          <GridItem xs={12} sm={6} md={3}>
+          {/* <GridItem xs={12} sm={6} md={3}>
             <Card>
               <CardHeader color="warning" stats icon>
                 <CardIcon color="warning">
@@ -72,31 +152,33 @@ class Dashboard extends React.Component {
                   <Danger>
                     <Warning />
                   </Danger>
-                  <a href="#pablo" onClick={e => e.preventDefault()}>
-                    Get more space
-                  </a>
+                  <a href="#pablo" onClick={e => e.preventDefault()} />
                 </div>
               </CardFooter>
             </Card>
-          </GridItem>
+          </GridItem> */}
           <GridItem xs={12} sm={6} md={3}>
             <Card>
               <CardHeader color="success" stats icon>
                 <CardIcon color="success">
                   <Store />
                 </CardIcon>
-                <p className={classes.cardCategory}>Revenue</p>
-                <h3 className={classes.cardTitle}>$34,245</h3>
+                <p className={classes.cardCategory}>
+                  Contagem de registros ANVISA
+                </p>
+                <h3 className={classes.cardTitle}>
+                  {this.state.registerCount}
+                </h3>
               </CardHeader>
               <CardFooter stats>
                 <div className={classes.stats}>
                   <DateRange />
-                  Last 24 Hours
+                  {/* Last 24 Hours */}
                 </div>
               </CardFooter>
             </Card>
           </GridItem>
-          <GridItem xs={12} sm={6} md={3}>
+          {/* <GridItem xs={12} sm={6} md={3}>
             <Card>
               <CardHeader color="danger" stats icon>
                 <CardIcon color="danger">
@@ -112,8 +194,8 @@ class Dashboard extends React.Component {
                 </div>
               </CardFooter>
             </Card>
-          </GridItem>
-          <GridItem xs={12} sm={6} md={3}>
+          </GridItem> */}
+          {/* <GridItem xs={12} sm={6} md={3}>
             <Card>
               <CardHeader color="info" stats icon>
                 <CardIcon color="info">
@@ -129,10 +211,10 @@ class Dashboard extends React.Component {
                 </div>
               </CardFooter>
             </Card>
-          </GridItem>
+          </GridItem> */}
         </GridContainer>
         <GridContainer>
-          <GridItem xs={12} sm={12} md={4}>
+          {/* <GridItem xs={12} sm={12} md={4}>
             <Card chart>
               <CardHeader color="success">
                 <ChartistGraph
@@ -207,67 +289,182 @@ class Dashboard extends React.Component {
                 </div>
               </CardFooter>
             </Card>
+          </GridItem> */}
+          <GridItem xs={12} sm={12} md={12}>
+            <Card>
+              <CardHeader color="success">
+                <h4 className={classes.cardTitleWhite}>
+                  Maior número de descartáveis
+                </h4>
+                <p className={classes.cardCategoryWhite}>
+                  {/* New employees on 15th September, 2016 */}
+                </p>
+              </CardHeader>
+              <CardBody>
+                <Table
+                  tableHeaderColor="success"
+                  tableHead={["Nome", "Qtd. Descartáveis"]}
+                  tableData={[
+                    [
+                      this.state.top10Descartaveis[0].Nome,
+                      this.state.top10Descartaveis[0].Count
+                    ],
+                    [
+                      this.state.top10Descartaveis[1].Nome,
+                      this.state.top10Descartaveis[1].Count
+                    ],
+                    [
+                      this.state.top10Descartaveis[2].Nome,
+                      this.state.top10Descartaveis[2].Count
+                    ],
+                    [
+                      this.state.top10Descartaveis[3].Nome,
+                      this.state.top10Descartaveis[3].Count
+                    ],
+                    [
+                      this.state.top10Descartaveis[4].Nome,
+                      this.state.top10Descartaveis[4].Count
+                    ],
+                    [
+                      this.state.top10Descartaveis[5].Nome,
+                      this.state.top10Descartaveis[5].Count
+                    ],
+                    [
+                      this.state.top10Descartaveis[6].Nome,
+                      this.state.top10Descartaveis[6].Count
+                    ],
+                    [
+                      this.state.top10Descartaveis[7].Nome,
+                      this.state.top10Descartaveis[7].Count
+                    ],
+                    [
+                      this.state.top10Descartaveis[8].Nome,
+                      this.state.top10Descartaveis[8].Count
+                    ],
+                    [
+                      this.state.top10Descartaveis[9].Nome,
+                      this.state.top10Descartaveis[9].Count
+                    ]
+                  ]}
+                />
+              </CardBody>
+            </Card>
           </GridItem>
         </GridContainer>
         <GridContainer>
           <GridItem xs={12} sm={12} md={6}>
-            <CustomTabs
-              title="Tasks:"
-              headerColor="primary"
-              tabs={[
-                {
-                  tabName: "Bugs",
-                  tabIcon: BugReport,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[0, 3]}
-                      tasksIndexes={[0, 1, 2, 3]}
-                      tasks={bugs}
-                    />
-                  )
-                },
-                {
-                  tabName: "Website",
-                  tabIcon: Code,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[0]}
-                      tasksIndexes={[0, 1]}
-                      tasks={website}
-                    />
-                  )
-                },
-                {
-                  tabName: "Server",
-                  tabIcon: Cloud,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[1]}
-                      tasksIndexes={[0, 1, 2]}
-                      tasks={server}
-                    />
-                  )
-                }
-              ]}
-            />
+            <Card>
+              <CardHeader color="danger">
+                <h4 className={classes.cardTitleWhite}>
+                  Laboratórios com mais medicamentos registrados
+                </h4>
+                <p className={classes.cardCategoryWhite}>
+                  {/* New employees on 15th September, 2016 */}
+                </p>
+              </CardHeader>
+              <CardBody>
+                <Table
+                  tableHeaderColor="danger"
+                  tableHead={["Nome", "Qtd. Medicamentos"]}
+                  tableData={[
+                    [
+                      this.state.top10Labs[0].Nome,
+                      this.state.top10Labs[0].Count
+                    ],
+                    [
+                      this.state.top10Labs[1].Nome,
+                      this.state.top10Labs[1].Count
+                    ],
+                    [
+                      this.state.top10Labs[2].Nome,
+                      this.state.top10Labs[2].Count
+                    ],
+                    [
+                      this.state.top10Labs[3].Nome,
+                      this.state.top10Labs[3].Count
+                    ],
+                    [
+                      this.state.top10Labs[4].Nome,
+                      this.state.top10Labs[4].Count
+                    ],
+                    [
+                      this.state.top10Labs[5].Nome,
+                      this.state.top10Labs[5].Count
+                    ],
+                    [
+                      this.state.top10Labs[6].Nome,
+                      this.state.top10Labs[6].Count
+                    ],
+                    [
+                      this.state.top10Labs[7].Nome,
+                      this.state.top10Labs[7].Count
+                    ],
+                    [
+                      this.state.top10Labs[8].Nome,
+                      this.state.top10Labs[8].Count
+                    ],
+                    [
+                      this.state.top10Labs[9].Nome,
+                      this.state.top10Labs[9].Count
+                    ]
+                  ]}
+                />
+              </CardBody>
+            </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>
             <Card>
               <CardHeader color="warning">
-                <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
+                <h4 className={classes.cardTitleWhite}>Países fabricantes</h4>
                 <p className={classes.cardCategoryWhite}>
-                  New employees on 15th September, 2016
+                  {/* New employees on 15th September, 2016 */}
                 </p>
               </CardHeader>
               <CardBody>
                 <Table
                   tableHeaderColor="warning"
-                  tableHead={["ID", "Name", "Salary", "Country"]}
+                  tableHead={["Nome", "Qtd. Exportada"]}
                   tableData={[
-                    ["1", "Dakota Rice", "$36,738", "Niger"],
-                    ["2", "Minerva Hooper", "$23,789", "Curaçao"],
-                    ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
-                    ["4", "Philip Chaney", "$38,735", "Korea, South"]
+                    [
+                      this.state.top10Exportadores[0].Nome,
+                      this.state.top10Exportadores[0].Count
+                    ],
+                    [
+                      this.state.top10Exportadores[1].Nome,
+                      this.state.top10Exportadores[1].Count
+                    ],
+                    [
+                      this.state.top10Exportadores[2].Nome,
+                      this.state.top10Exportadores[2].Count
+                    ],
+                    [
+                      this.state.top10Exportadores[3].Nome,
+                      this.state.top10Exportadores[3].Count
+                    ],
+                    [
+                      this.state.top10Exportadores[4].Nome,
+                      this.state.top10Exportadores[4].Count
+                    ],
+                    [
+                      this.state.top10Exportadores[5].Nome,
+                      this.state.top10Exportadores[5].Count
+                    ],
+                    [
+                      this.state.top10Exportadores[6].Nome,
+                      this.state.top10Exportadores[6].Count
+                    ],
+                    [
+                      this.state.top10Exportadores[7].Nome,
+                      this.state.top10Exportadores[7].Count
+                    ],
+                    [
+                      this.state.top10Exportadores[8].Nome,
+                      this.state.top10Exportadores[8].Count
+                    ],
+                    [
+                      this.state.top10Exportadores[9].Nome,
+                      this.state.top10Exportadores[9].Count
+                    ]
                   ]}
                 />
               </CardBody>

@@ -22,6 +22,7 @@ class RegisterForm extends React.Component  {
 
    onSubmit = (e) => {
        e.preventDefault();
+       var self = this
        console.log(this.state)
        axios.post('http://localhost:50336/api/Users', {
         nome: this.state.name,
@@ -30,6 +31,7 @@ class RegisterForm extends React.Component  {
         usuario: this.state.username
       })
       .then(function (response) {
+        self.props.history.push('/home');
         console.log(response);
       })
       .catch(function (error) {

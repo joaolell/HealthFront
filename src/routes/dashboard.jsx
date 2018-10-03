@@ -20,52 +20,52 @@ const dashboardRoutes = [
   {
     path: "/dashboard",
     sidebarName: "Visão geral",
-    navbarName: "Material Dashboard",
+    navbarName: "Dashboard Medicamentos",
     icon: Dashboard,
     component: DashboardPage
   },
   {
     path: "/user",
     sidebarName: "Meu perfil",
-    navbarName: "Profile",
+    navbarName: "Meu perfil",
     icon: Person,
     component: UserProfile
   },
-  {
-    path: "/table",
-    sidebarName: "Table List",
-    navbarName: "Table List",
-    icon: "content_paste",
-    component: TableList
-  },
-  {
-    path: "/typography",
-    sidebarName: "Typography",
-    navbarName: "Typography",
-    icon: LibraryBooks,
-    component: Typography
-  },
-  {
-    path: "/icons",
-    sidebarName: "Icons",
-    navbarName: "Icons",
-    icon: BubbleChart,
-    component: Icons
-  },
-  {
-    path: "/maps",
-    sidebarName: "Maps",
-    navbarName: "Map",
-    icon: LocationOn,
-    component: Maps
-  },
-  {
-    path: "/notifications",
-    sidebarName: "Notifications",
-    navbarName: "Notifications",
-    icon: Notifications,
-    component: NotificationsPage
-  },
+  // {
+  //   path: "/table",
+  //   sidebarName: "Table List",
+  //   navbarName: "Table List",
+  //   icon: "content_paste",
+  //   component: TableList
+  // },
+  // {
+  //   path: "/typography",
+  //   sidebarName: "Typography",
+  //   navbarName: "Typography",
+  //   icon: LibraryBooks,
+  //   component: Typography
+  // },
+  // {
+  //   path: "/icons",
+  //   sidebarName: "Icons",
+  //   navbarName: "Icons",
+  //   icon: BubbleChart,
+  //   component: Icons
+  // },
+  // {
+  //   path: "/maps",
+  //   sidebarName: "Maps",
+  //   navbarName: "Map",
+  //   icon: LocationOn,
+  //   component: Maps
+  // },
+  // {
+  //   path: "/notifications",
+  //   sidebarName: "Notifications",
+  //   navbarName: "Notifications",
+  //   icon: Notifications,
+  //   component: NotificationsPage
+  // },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
 
